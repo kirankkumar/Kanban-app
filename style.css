@@ -4,6 +4,15 @@
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
+    /* background-color: #44426e; */
+    /* background: linear-gradient(to right, #00b7ff,#ffffc7); */
+}
+
+:root {
+    --p1: pink;
+    --p2: seagreen;
+    --p3: cornflowerblue;
+    --p4: black;
 }
 
 header {
@@ -37,16 +46,16 @@ header {
 }
 
 .priority-filter .box.p1 {
-    background-color: pink;
+    background-color: var(--p1);
 }
 .priority-filter .box.p2 {
-    background-color: seagreen;
+    background-color: var(--p2);
 }
 .priority-filter .box.p3 {
-    background-color: cornflowerblue;
+    background-color: var(--p3);
 }
 .priority-filter .box.p4 {
-    background-color: black;
+    background-color: var(--p4);
 }
 
 .quick-action {
@@ -88,12 +97,14 @@ main h1 {
 .modal {
     width: 50vw;
     height: 50vh;
-    background-color: #dfe4ea;
+    /* background: linear-gradient(to right, #00b7ff,#ffffc7); */
+    background-color: #44426e;
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
     display: flex;
+    z-index: 1;
 }
 
 .modal .left-section { 
@@ -151,4 +162,86 @@ main h1 {
 
 .hide {
     display: none;
+}
+
+.ticket-section {
+    display: flex;
+    padding: 15px;
+    gap: 15px;
+    flex-wrap: wrap;
+    border: 1px solid red;
+}
+
+.ticket-container {
+    width: 200px;
+    min-height: 100px;
+    background-color: #ccc;
+}
+
+.ticket-container .ticket-priority {
+    display: flex;
+    height: 20px;
+}
+
+.ticket-container .ticket-priority.p1{
+    background-color: var(--p1);
+}
+
+.ticket-container .ticket-priority.p2{
+    background-color: var(--p2);
+}
+
+.ticket-container .ticket-priority.p3{
+    background-color: var(--p3);
+}
+.ticket-container .ticket-priority.p4{
+    background-color: var(--p4);
+}
+
+
+.ticket-container .ticket-id {
+    display: flex;
+    height: 30px;
+    background-color: yellow;
+}
+.ticket-container .ticket-content {
+    display: flex;
+    height: 100px;
+}
+
+.ticket-container .ticket-content textarea {
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 5px;
+}
+
+.ticket-container {
+    position: relative;
+}
+
+.ticket-container .ticket-lock {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+.ticket-container .ticket-lock .fa-lock-open {
+    display: block;
+}
+
+.ticket-container .ticket-lock .fa-lock {
+    display: none;
+}
+
+.ticket-container .ticket-lock.locked .fa-lock-open {
+    display: none;
+}
+
+.ticket-container .ticket-lock.locked .fa-lock {
+    display: block;
 }

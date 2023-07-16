@@ -3,8 +3,24 @@ const modalRef = document.querySelector('.modal');
 const closeModalButtonRef = document.querySelector('.modal .right-section .close');
 const textareaRef = document.querySelector('.modal textarea');
 const priorityBoxesRef = document.querySelectorAll('.modal .right-section .priority-filter .box');
+const ticketsSectionRef = document.querySelector('.ticket-section');
 
-const tasks = [];
+const tasks = [
+    // {
+    //     id: '1',
+    //     description: 'Task 1',
+    //     priority: 'p1'
+    // },
+    // {
+    //     id: '2',
+    //     description: 'Task 2',
+    //     priority: 'p2'
+    // },{
+    //     id: '3',
+    //     description: 'Task 3',
+    //     priority: 'p3'
+    // }
+];
 
 const newTask = {
     id: '',
@@ -12,22 +28,6 @@ const newTask = {
     priority: ''
 };
 
-// [
-//     {
-//         id: '',
-//         description: '',
-//         priority: ''
-//     },
-//     {
-//         id: '',
-//         description: '',
-//         priority: ''
-//     },{
-//         id: '',
-//         description: '',
-//         priority: ''
-//     }
-// ]
 
 function openModal() {
     modalRef.classList.remove('hide');
@@ -59,7 +59,8 @@ textareaRef.addEventListener('keyup', function(ev) {
             description: description,
             priority: priority
         });
-        console.log(tasks);
+        // console.log(tasks);
+        listTickets(tasks);
         closeModal();
     }
 });
@@ -92,3 +93,85 @@ priorityBoxesRef.forEach(function(boxRef) {
         addSelectedClassToCurrentBox(ev.target);
     })
 });
+
+function createTicket(ticket) {
+    return `
+    <div class="ticket-priority ${ticket.priority}"></div>
+    <div class="ticket-id">${ticket.id}</div>
+    <div class="ticket-content">
+        <textarea disabled>${ticket.description}</textarea>
+    </div>
+    <div class="ticket-lock locked">
+        <i class="fa-solid fa-lock"></i>
+        <i class="fa-solid fa-lock-open"></i>
+    </div>
+    `;
+}
+
+function clearList() {
+    ticketsSectionRef.innerHTML = '';
+}
+
+function listTickets(tickets){
+    clearList();
+        tickets.forEach((item)=>{
+        //    console.log(item);
+           const creatDiv = document.createElement("div");
+           creatDiv.setAttribute("class","ticket-container");
+           creatDiv.setAttribute("data-id",item.id);
+           const ticketHtml = createTicket(item);
+           creatDiv.innerHTML = ticketHtml;
+           ticketsSectionRef.appendChild(creatDiv);
+        })    
+}
+
+
+function updateTaskDescription(id, updatedDescription) {
+    const selectedTask = tasks.find((task) => task.id === id);
+    selectedTask.description = updatedDescription;
+    // console.log(tasks);
+}
+
+
+ticketsSectionRef.addEventListener('click', function(ev) {
+    // console.log("kiran");
+    if ([...ev.target.classList].includes('fa-solid')) {
+        const currentTicketContainerRef = ev.target.closest('.ticket-container');
+        const currentTicketId = currentTicketContainerRef.getAttribute("data-id");
+        // console.log(dataidRef);
+        const currentTextAreaRef = currentTicketContainerRef.querySelector('.ticket-content textarea');
+        const lockRef = currentTicketContainerRef.querySelector('.ticket-lock');
+        const isEditable = lockRef.classList.contains("locked")//('locked');
+        console.log(isEditable);
+        if (isEditable) {
+            lockRef.classList.remove('locked');
+            currentTextAreaRef.removeAttribute('disabled');
+        } else {
+            lockRef.classList.add('locked');
+            currentTextAreaRef.setAttribute('disabled',true);
+        }
+    }
+});
+
+listTickets(tasks);
+
+///
+
+// function listTickets(tickets) {
+//     clearList();
+//     tickets.forEach((ticket) => {
+//         // console.log(ticket);
+//         const ticketContainerRef = document.createElement('div');
+//         ticketContainerRef.setAttribute('class', 'ticket-container');
+//         ticketContainerRef.setAttribute('data-id', ticket.id);
+//         const ticketHTML = createTicket(ticket);
+//         ticketContainerRef.innerHTML = ticketHTML;
+//         ticketsSectionRef.appendChild(ticketContainerRef);
+//         const textAreaRef = ticketContainerRef.querySelector('.ticket-content textarea');
+//         textAreaRef.addEventListener('blur', function(ev) {
+//             const currentTicketContainerRef = ev.target.closest('.ticket-container');
+//             const currentTicketId = currentTicketContainerRef.getAttribute('data-id');
+//             updateTaskDescription(currentTicketId, textAreaRef.value);
+//         });
+//     });
+// }

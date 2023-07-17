@@ -4,8 +4,6 @@
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
-    /* background-color: #44426e; */
-    /* background: linear-gradient(to right, #00b7ff,#ffffc7); */
 }
 
 :root {
@@ -79,8 +77,12 @@ header {
     color: white;
 }
 
-.quick-action .icon.delete {
+.quick-action .icon.delete.enabled {
     color: red;
+}
+
+.quick-action .icon.delete {
+    color: white;
 }
 
 .quick-action .icon:hover {
@@ -97,8 +99,7 @@ main h1 {
 .modal {
     width: 50vw;
     height: 50vh;
-    /* background: linear-gradient(to right, #00b7ff,#ffffc7); */
-    background-color: #44426e;
+    background-color: #dfe4ea;
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
@@ -169,8 +170,16 @@ main h1 {
     padding: 15px;
     gap: 15px;
     flex-wrap: wrap;
-    border: 1px solid red;
 }
+
+.ticket-section.enable-delete .ticket-delete {
+    display: block;
+}
+
+.ticket-section .ticket-delete {
+    display: none;
+}
+
 
 .ticket-container {
     width: 200px;
@@ -183,18 +192,18 @@ main h1 {
     height: 20px;
 }
 
-.ticket-container .ticket-priority.p1{
+.ticket-container [data-priority='p1'].ticket-priority{
     background-color: var(--p1);
 }
 
-.ticket-container .ticket-priority.p2{
+.ticket-container [data-priority='p2'].ticket-priority{
     background-color: var(--p2);
 }
 
-.ticket-container .ticket-priority.p3{
+.ticket-container [data-priority='p3'].ticket-priority{
     background-color: var(--p3);
 }
-.ticket-container .ticket-priority.p4{
+.ticket-container [data-priority='p4'].ticket-priority{
     background-color: var(--p4);
 }
 
@@ -230,6 +239,13 @@ main h1 {
     cursor: pointer;
 }
 
+.ticket-delete {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
 .ticket-container .ticket-lock .fa-lock-open {
     display: block;
 }
@@ -244,4 +260,9 @@ main h1 {
 
 .ticket-container .ticket-lock.locked .fa-lock {
     display: block;
+}
+
+.clear-filter {
+    margin-left: 15px;
+    padding: 10px;
 }
